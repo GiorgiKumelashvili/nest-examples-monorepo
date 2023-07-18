@@ -14,7 +14,6 @@
         "outputPath": "dist/apps/nest-kysely",
         "main": "apps/nest-kysely/src/main.ts",
         "tsConfig": "apps/nest-kysely/tsconfig.app.json",
-        "assets": ["apps/nest-kysely/src/assets"],
         "isolatedConfig": true,
         "webpackConfig": "apps/nest-kysely/webpack.config.js"
       },

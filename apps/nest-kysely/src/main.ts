@@ -1,23 +1,19 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
-
-import { Logger } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
+import { NestExpressApplication } from '@nestjs/platform-express';
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app/app.module';
+import { ENV_SERVICE_TOKEN } from '@nest-examples/shared';
+import { AppModule } from './app.module';
 
-async function bootstrap() {
-  console.clear();
-  const app = await NestFactory.create(AppModule);
-  const globalPrefix = 'api';
-  app.setGlobalPrefix(globalPrefix);
-  const port = process.env.PORT || 3000;
-  await app.listen(port);
+// console.clear();
+// Logger.log('Restarting application custom');
 
-  Logger.log(
-    `🚀 Application is running on: http://localhost:${port}/${globalPrefix} ${Logger.getTimestamp()}`
-  );
-}
+NestFactory.create<NestExpressApplication>(AppModule).then(async (app: NestExpressApplication) => {
+  const logger = new Logger('Main logger');
+  const envService = app!.get(ENV_SERVICE_TOKEN);
 
-bootstrap();
+  app.enableCors();
+  app.useGlobalPipes(new ValidationPipe({ forbidNonWhitelisted: true, transform: true, whitelist: true }));
+
+  await app.listen(envService.get('PORT'));
+  logger.verbose(`nest kyesely api listening on --- ${await app.getUrl()}`);
+});

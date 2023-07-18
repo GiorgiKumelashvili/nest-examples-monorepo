@@ -1,6 +1,7 @@
 {
   "extends": ["../../.eslintrc.json"],
   "ignorePatterns": ["!**/*"],
+
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
@@ -9,7 +10,7 @@
     {
       "files": ["*.ts", "*.tsx"],
       "parserOptions": {
-        "project": ["apps/nest-kysely/tsconfig.*?.json"]
+        "project": ["libs/shared/tsconfig.*?.json"]
       },
       "rules": {}
     },
