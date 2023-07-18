@@ -1,0 +1,67 @@
+{
+  "name": "nest-kysely",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/nest-kysely/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/nest-kysely",
+        "main": "apps/nest-kysely/src/main.ts",
+        "tsConfig": "apps/nest-kysely/tsconfig.app.json",
+        "assets": ["apps/nest-kysely/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/nest-kysely/webpack.config.js"
+      },
+      "configurations": {
+        "development": {
+          "deleteOutputPath": true,
+          "watch": true
+        },
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "nest-kysely:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "nest-kysely:build:development"
+        },
+        "production": {
+          "buildTarget": "nest-kysely:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/nest-kysely/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/nest-kysely/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}
