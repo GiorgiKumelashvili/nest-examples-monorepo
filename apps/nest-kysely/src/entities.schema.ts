@@ -11,7 +11,7 @@ export enum Gender {
 }
 
 export interface UserTable {
-  id: Generated<number>;
+  id: Generated<string>;
   name: string;
   age: number;
   gender: Gender | null;

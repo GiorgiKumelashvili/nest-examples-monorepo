@@ -1,6 +1,6 @@
 import { Kysely, sql } from 'kysely';
 import { faker } from '@faker-js/faker';
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { EnvService, InjectEnv } from '@nest-examples/shared';
 import { InjectKysely } from './database/database.decorator';
 import { Database, Gender } from './entities.schema';
@@ -69,5 +69,27 @@ export class AppController {
         .returningAll()
         .execute();
     });
+  }
+
+  @Get('user/all')
+  async getAll() {
+    const users = await this.db.selectFrom('users').selectAll().orderBy('id').execute();
+
+    // playing around
+    const firstUser = users.shift();
+
+    return {
+      firstUser: { ...firstUser, customDateUTC: firstUser.created_at.toUTCString() },
+      users,
+    };
+  }
+
+  @Get('user/update/:id')
+  async updateName(@Param('id') id: string, @Query('name') name: string) {
+    const resp = await this.db.updateTable('users').set({ name }).where('id', '=', id).executeTakeFirst();
+
+    return {
+      numUpdatedRows: resp.numUpdatedRows.toString(),
+    };
   }
 }

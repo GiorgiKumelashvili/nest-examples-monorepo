@@ -33,7 +33,8 @@
       },
       "configurations": {
         "development": {
-          "buildTarget": "nest-kysely:build:development"
+          "buildTarget": "nest-kysely:build:development",
+          "watch": true
         },
         "production": {
           "buildTarget": "nest-kysely:build:production"

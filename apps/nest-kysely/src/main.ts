@@ -4,9 +4,6 @@ import { NestFactory } from '@nestjs/core';
 import { ENV_SERVICE_TOKEN } from '@nest-examples/shared';
 import { AppModule } from './app.module';
 
-// console.clear();
-// Logger.log('Restarting application custom');
-
 NestFactory.create<NestExpressApplication>(AppModule).then(async (app: NestExpressApplication) => {
   const logger = new Logger('Main logger');
   const envService = app!.get(ENV_SERVICE_TOKEN);
