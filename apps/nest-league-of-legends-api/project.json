@@ -1,0 +1,64 @@
+{
+  "name": "nest-league-of-legends-api",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/nest-league-of-legends-api/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/nest-league-of-legends-api",
+        "main": "apps/nest-league-of-legends-api/src/main.ts",
+        "tsConfig": "apps/nest-league-of-legends-api/tsconfig.app.json",
+        "assets": [],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/nest-league-of-legends-api/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "nest-league-of-legends-api:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "nest-league-of-legends-api:build:development"
+        },
+        "production": {
+          "buildTarget": "nest-league-of-legends-api:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/nest-league-of-legends-api/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/nest-league-of-legends-api/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}
