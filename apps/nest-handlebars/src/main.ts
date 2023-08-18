@@ -1,12 +1,12 @@
 import * as path from 'path';
 import * as hbs from 'hbs';
 import * as hbsUtilsFunc from 'hbs-utils';
-import * as express from 'express';
-import handlebarsLayouts from 'handlebars-layouts';
+import * as handlebarsLayouts from 'handlebars-layouts';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
 import { Logger } from '@nestjs/common';
+import { setupHandlebarHelpers } from './handlebar';
 
 NestFactory.create<NestExpressApplication>(AppModule).then(async (app: NestExpressApplication) => {
   const hbsUtils = hbsUtilsFunc.default(hbs);
@@ -17,16 +17,10 @@ NestFactory.create<NestExpressApplication>(AppModule).then(async (app: NestExpre
   app.setBaseViewsDir(path.join(__dirname, './views'));
   app.setViewEngine('hbs');
 
+  // setup
   hbsUtils.registerWatchedPartials(partialsDir);
-
-  hbs.handlebars.registerHelper(handlebarsLayouts(hbs.handlebars));
-  hbs.handlebars.registerHelper('helper_name', () => 'helper value');
-  hbs.handlebars.registerHelper('loud', aString => aString.toUpperCase());
-
-  //! Must be like this (arrow functions do not work !!!)
-  hbs.handlebars.registerHelper('print_person', function () {
-    return this.firstname + ' ' + this.lastname;
-  });
+  handlebarsLayouts.register(hbs.handlebars);
+  setupHandlebarHelpers(hbs.handlebars);
 
   await app.listen(3000);
 
