@@ -34,6 +34,6 @@ NestFactory.create<NestExpressApplication>(AppModule).then(async (app: NestExpre
 
   // log misc stuff
   const apiUrl: string = await app.getUrl();
-  logger.verbose(`Template builder api listening on --- ${apiUrl}`);
-  logger.verbose(`Template builder api docs on --- ${apiUrl}/docs`);
+  logger.verbose(`Application listening on --- ${apiUrl}`);
+  logger.verbose(`Application docs on --- ${apiUrl}/docs`);
 });
