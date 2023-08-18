@@ -12,27 +12,36 @@
     "start:kysely": "nx run nest-kysely:serve",
     "start:njk": "nx run nest-nunjucks:serve",
     "start:hbs": "nx run nest-handlebars:serve",
-    "start:mongoose": "nx run nest-mongo-mongoose:serve"
+    "start:mongoose": "nx run nest-mongo-mongoose:serve",
+    "start:graphql": "nx run nest-mongo-graphql:serve"
   },
   "dependencies": {
+    "@nestjs/apollo": "^12.0.7",
     "@nestjs/common": "^10.0.2",
     "@nestjs/config": "^3.0.0",
     "@nestjs/core": "^10.0.2",
+    "@nestjs/graphql": "^12.0.8",
     "@nestjs/mongoose": "^10.0.1",
     "@nestjs/platform-express": "^10.0.2",
+    "@nestjs/typeorm": "^10.0.0",
+    "apollo-server-express": "^3.12.0",
     "axios": "^1.0.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
+    "graphql": "^16.8.0",
+    "graphql-tools": "^9.0.0",
     "handlebars-layouts": "^3.1.4",
     "hbs": "^4.2.0",
     "hbs-utils": "^0.0.4",
     "kysely": "^0.26.1",
+    "mongodb": "^5.7.0",
     "mongoose": "^7.4.3",
     "nunjucks": "^3.2.4",
     "pg": "^8.11.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0",
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.0.2",
